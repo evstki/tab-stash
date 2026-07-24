@@ -13,16 +13,17 @@ them only after the save succeeds.
 
 ## What it does
 
-- **Store YouTube tabs** saves and closes YouTube, YouTube Music, `youtu.be`,
+- **Save YouTube tabs** saves and closes YouTube, YouTube Music, `youtu.be`,
   and privacy-enhanced YouTube tabs across all regular browser windows.
-- **Store all tabs** saves every restorable web tab across all regular windows.
+- **Save all tabs** saves every restorable web tab across all regular windows.
   YouTube tabs always go into the separate YouTube collection.
-- **Open storage** opens a full library with **All**, **YouTube**, and
-  **By site** views, search, individual opening/deletion, and bulk actions.
+- **View saved tabs** shows a library with **All**, **YouTube**, and **Sites**
+  views, where you can search, open or delete individual tabs, and use bulk
+  actions.
 - The **YouTube** view shows lazy-loaded video thumbnails; playlist, channel,
   and other non-video pages use a neutral fallback card.
-- Pinned state and original tab order are saved. Opening a stored tab keeps the
-  saved copy; deletion is always explicit.
+- Pinned state and original tab order are saved. Opening a saved tab keeps the
+  saved copy. Deleting a saved tab always requires confirmation.
 - Browser-internal pages such as `chrome://settings` are left open because an
   extension cannot safely restore them.
 

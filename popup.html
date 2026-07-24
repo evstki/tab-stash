@@ -10,27 +10,27 @@
   <body>
     <main class="popup">
       <header class="header">
-        <div class="brand">
+        <h1 class="brand">
           <img src="icons/icon-48.png" alt="" />
           <span>Tab Stash</span>
-        </div>
+        </h1>
         <span class="saved-count"><strong id="saved-total">—</strong> saved</span>
       </header>
 
       <section class="actions" aria-label="Tab actions">
         <button id="save-youtube" class="action action--youtube" type="button">
           <span class="action__icon" aria-hidden="true">
-            <svg viewBox="0 0 20 20">
-              <path d="m8 6 6 4-6 4z"></path>
+            <svg viewBox="0 0 20 20" focusable="false">
+              <path d="m6 4.75 9 5.25-9 5.25z"></path>
             </svg>
           </span>
-          <span class="action__label">Save YouTube</span>
+          <span class="action__label">Save YouTube tabs</span>
           <span id="youtube-open-count" class="action__meta">Checking…</span>
         </button>
 
         <button id="save-all" class="action action--primary" type="button">
           <span class="action__icon" aria-hidden="true">
-            <svg viewBox="0 0 20 20">
+            <svg viewBox="0 0 20 20" focusable="false">
               <path d="M4.5 5.5h11v9h-11z"></path>
               <path d="m7.5 9 2.5 2.5L12.5 9"></path>
             </svg>
@@ -39,19 +39,45 @@
           <span id="all-open-count" class="action__meta">Checking…</span>
         </button>
 
-        <button id="open-library" class="action" type="button">
+        <a
+          id="open-library"
+          class="action"
+          href="storage.html"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="action__icon" aria-hidden="true">
-            <svg viewBox="0 0 20 20">
+            <svg viewBox="0 0 20 20" focusable="false">
               <path d="M4.5 5.5h11v9h-11z"></path>
               <path d="M7 8.5h6M7 11.5h4"></path>
             </svg>
           </span>
-          <span class="action__label">Open saved tabs</span>
+          <span class="action__label">View saved tabs</span>
           <span class="action__meta" aria-hidden="true">→</span>
-        </button>
+        </a>
       </section>
 
-      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <div id="status" class="status">
+        <span id="status-message"></span>
+        <button
+          id="status-dismiss"
+          class="status__dismiss"
+          type="button"
+          aria-label="Dismiss message"
+        >
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <path d="m6 6 8 8M14 6l-8 8"></path>
+          </svg>
+        </button>
+      </div>
+      <div
+        id="status-announcer"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+      <div id="status-alert" class="sr-only" role="alert" aria-live="assertive"></div>
     </main>
 
     <script type="module" src="popup.js"></script>

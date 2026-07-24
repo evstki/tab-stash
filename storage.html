@@ -4,20 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Tab Stash — Storage</title>
+    <title>Saved tabs · Tab Stash</title>
     <link rel="stylesheet" href="storage.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
     <header class="topbar">
       <div class="topbar__inner">
-        <a class="wordmark" href="storage.html" aria-label="Tab Stash home">
+        <a class="wordmark" href="storage.html">
           <img src="icons/icon-48.png" alt="" />
           <span>Tab Stash</span>
         </a>
       </div>
     </header>
 
-    <main class="page-shell">
+    <main id="main-content" class="page-shell" tabindex="-1">
       <header class="page-header">
         <div>
           <h1>Saved tabs</h1>
@@ -25,10 +27,10 @@
         </div>
         <div class="page-header__actions">
           <button id="open-visible" class="button button--primary" type="button">
-            Open all
+            Open all tabs
           </button>
-          <button id="clear-visible" class="button button--ghost" type="button">
-            Clear
+          <button id="delete-visible" class="button button--ghost" type="button">
+            Delete all tabs
           </button>
         </div>
       </header>
@@ -82,9 +84,9 @@
           </div>
 
           <label class="search">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="11" cy="11" r="6"></circle>
-              <path d="m16 16 4 4"></path>
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <circle cx="6.5" cy="6.5" r="4.5"></circle>
+              <path d="m10 10 4 4"></path>
             </svg>
             <span class="sr-only">Search saved tabs</span>
             <input
@@ -103,11 +105,59 @@
           role="tabpanel"
           aria-labelledby="view-all"
           tabindex="-1"
+          aria-busy="true"
+        ></div>
+        <div
+          id="result-summary"
+          class="sr-only"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
         ></div>
       </section>
     </main>
 
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="toast" class="toast" aria-hidden="true">
+      <span id="toast-message"></span>
+      <button
+        id="toast-dismiss"
+        class="toast__dismiss"
+        type="button"
+        aria-label="Dismiss notification"
+        tabindex="-1"
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="m6 6 8 8M14 6l-8 8"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="toast-status" class="sr-only" role="status" aria-live="polite"></div>
+    <div id="toast-alert" class="sr-only" role="alert" aria-live="assertive"></div>
+
+    <dialog
+      id="delete-dialog"
+      class="delete-dialog"
+      aria-labelledby="delete-dialog-title"
+      aria-describedby="delete-dialog-description"
+    >
+      <form method="dialog">
+        <h2 id="delete-dialog-title">Delete saved tabs?</h2>
+        <p id="delete-dialog-description"></p>
+        <div class="delete-dialog__actions">
+          <button class="button" type="submit" value="cancel" autofocus>
+            Cancel
+          </button>
+          <button
+            id="delete-dialog-confirm"
+            class="button button--danger"
+            type="submit"
+            value="confirm"
+          >
+            Delete tabs
+          </button>
+        </div>
+      </form>
+    </dialog>
 
     <script type="module" src="storage.js"></script>
   </body>

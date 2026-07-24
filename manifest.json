@@ -2,9 +2,9 @@
   "manifest_version": 3,
   "name": "Tab Stash",
   "short_name": "Tab Stash",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Save open tabs for later, with YouTube kept in its own tidy collection.",
-  "minimum_chrome_version": "109",
+  "minimum_chrome_version": "117",
   "incognito": "not_allowed",
   "permissions": [
     "tabs",

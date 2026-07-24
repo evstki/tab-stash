@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Tab Stash</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="header">
+        <div class="brand">
+          <img src="icons/icon-48.png" alt="" />
+          <span>Tab Stash</span>
+        </div>
+        <span class="saved-count"><strong id="saved-total">—</strong> saved</span>
+      </header>
+
+      <section class="actions" aria-label="Tab actions">
+        <button id="save-youtube" class="action action--youtube" type="button">
+          <span class="action__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20">
+              <path d="m8 6 6 4-6 4z"></path>
+            </svg>
+          </span>
+          <span class="action__label">Save YouTube</span>
+          <span id="youtube-open-count" class="action__meta">Checking…</span>
+        </button>
+
+        <button id="save-all" class="action action--primary" type="button">
+          <span class="action__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20">
+              <path d="M4.5 5.5h11v9h-11z"></path>
+              <path d="m7.5 9 2.5 2.5L12.5 9"></path>
+            </svg>
+          </span>
+          <span class="action__label">Save all tabs</span>
+          <span id="all-open-count" class="action__meta">Checking…</span>
+        </button>
+
+        <button id="open-library" class="action" type="button">
+          <span class="action__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20">
+              <path d="M4.5 5.5h11v9h-11z"></path>
+              <path d="M7 8.5h6M7 11.5h4"></path>
+            </svg>
+          </span>
+          <span class="action__label">Open saved tabs</span>
+          <span class="action__meta" aria-hidden="true">→</span>
+        </button>
+      </section>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </main>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

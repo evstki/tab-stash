@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Tab Stash — Storage</title>
+    <link rel="stylesheet" href="storage.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="wordmark" href="storage.html" aria-label="Tab Stash home">
+          <img src="icons/icon-48.png" alt="" />
+          <span>Tab Stash</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <header class="page-header">
+        <div>
+          <h1>Saved tabs</h1>
+          <p id="total-summary">0 tabs</p>
+        </div>
+        <div class="page-header__actions">
+          <button id="open-visible" class="button button--primary" type="button">
+            Open all
+          </button>
+          <button id="clear-visible" class="button button--ghost" type="button">
+            Clear
+          </button>
+        </div>
+      </header>
+
+      <section class="library" aria-labelledby="library-title">
+        <h2 id="library-title" class="sr-only">Saved tabs library</h2>
+
+        <div class="library-toolbar">
+          <div
+            class="view-tabs"
+            role="tablist"
+            aria-label="Storage views"
+            data-view="all"
+            data-input="programmatic"
+          >
+            <button
+              id="view-all"
+              class="view-tab is-active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="library-content"
+              data-view="all"
+            >
+              All <span id="count-all">0</span>
+            </button>
+            <button
+              id="view-youtube"
+              class="view-tab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="library-content"
+              data-view="youtube"
+              tabindex="-1"
+            >
+              YouTube <span id="count-youtube">0</span>
+            </button>
+            <button
+              id="view-sites"
+              class="view-tab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="library-content"
+              data-view="sites"
+              tabindex="-1"
+            >
+              Sites <span id="count-sites">0</span>
+            </button>
+          </div>
+
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="6"></circle>
+              <path d="m16 16 4 4"></path>
+            </svg>
+            <span class="sr-only">Search saved tabs</span>
+            <input
+              id="search"
+              type="search"
+              autocomplete="off"
+              placeholder="Search"
+            />
+            <kbd>/</kbd>
+          </label>
+        </div>
+
+        <div
+          id="library-content"
+          class="library-content"
+          role="tabpanel"
+          aria-labelledby="view-all"
+          tabindex="-1"
+        ></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="storage.js"></script>
+  </body>
+</html>

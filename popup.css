@@ -30,7 +30,7 @@
 html,
 body {
   width: 352px;
-  max-width: 100vw;
+  min-width: 352px;
   margin: 0;
 }
 

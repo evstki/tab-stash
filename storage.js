@@ -2,6 +2,7 @@ import {
   STORAGE_KEY,
   allRecords,
   getSiteKey,
+  getYouTubeThumbnailUrl,
   groupRecordsBySite,
   matchesSearch,
 } from "./lib/tab-utils.js";
@@ -165,6 +166,81 @@ function createList(records) {
   return list;
 }
 
+function createYouTubeCard(record, thumbnailUrl) {
+  const card = createElement("article", "youtube-card");
+  card.dataset.recordId = record.id;
+
+  const openButton = createElement("button", "youtube-card__open");
+  openButton.type = "button";
+  openButton.dataset.action = "open-record";
+  openButton.dataset.recordId = record.id;
+  openButton.setAttribute("aria-label", `Open ${record.title} on YouTube`);
+
+  const media = createElement("span", "youtube-card__media");
+  const fallback = createElement("span", "youtube-card__fallback");
+  const fallbackMark = createElement("span", "youtube-card__fallback-mark");
+  fallback.setAttribute("aria-hidden", "true");
+  fallback.append(fallbackMark);
+  media.append(fallback);
+
+  if (thumbnailUrl) {
+    const image = document.createElement("img");
+    const play = createElement("span", "youtube-card__play");
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.referrerPolicy = "no-referrer";
+    image.addEventListener(
+      "load",
+      () => media.classList.add("has-thumbnail"),
+      { once: true },
+    );
+    image.addEventListener("error", () => image.remove(), { once: true });
+    image.src = thumbnailUrl;
+    play.setAttribute("aria-hidden", "true");
+    media.append(image, play);
+  }
+
+  const copy = createElement("span", "youtube-card__copy");
+  const title = createElement("span", "youtube-card__title", record.title);
+  title.title = record.title;
+  const meta = createElement(
+    "span",
+    "youtube-card__meta",
+    `${record.site} · ${formatSavedAt(record.savedAt)}`,
+  );
+  copy.append(title, meta);
+  openButton.append(media, copy);
+
+  const deleteButton = createElement(
+    "button",
+    "row-action row-action--delete youtube-card__delete",
+    "×",
+  );
+  deleteButton.type = "button";
+  deleteButton.title = "Delete";
+  deleteButton.dataset.action = "delete-record";
+  deleteButton.dataset.recordId = record.id;
+  deleteButton.setAttribute("aria-label", `Delete ${record.title}`);
+
+  card.append(openButton, deleteButton);
+  return card;
+}
+
+function createYouTubeView(records) {
+  const container = createElement("div", "youtube-view");
+  const grid = createElement("div", "youtube-grid");
+
+  for (const record of records) {
+    grid.append(
+      createYouTubeCard(record, getYouTubeThumbnailUrl(record.url)),
+    );
+  }
+
+  container.append(grid);
+  return container;
+}
+
 function createSiteGroups(records) {
   const container = createElement("div", "site-groups");
 
@@ -253,9 +329,11 @@ function render() {
   elements.content.replaceChildren(
     visible.length === 0
       ? createEmptyState()
-      : state.view === "sites"
-        ? createSiteGroups(visible)
-        : createList(visible),
+      : state.view === "youtube"
+        ? createYouTubeView(visible)
+        : state.view === "sites"
+          ? createSiteGroups(visible)
+          : createList(visible),
   );
 
   for (const button of elements.content.querySelectorAll(

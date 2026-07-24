@@ -7,6 +7,8 @@ import {
   allRecords,
   createEmptyLibrary,
   getSiteKey,
+  getYouTubeThumbnailUrl,
+  getYouTubeVideoId,
   isRestorableUrl,
   isYouTubeUrl,
   makeSavedRecord,
@@ -23,6 +25,43 @@ test("YouTube classification honors hostname boundaries", () => {
   assert.equal(isYouTubeUrl("https://notyoutube.com/watch"), false);
   assert.equal(isYouTubeUrl("https://youtube.com.evil.example/watch"), false);
   assert.equal(isYouTubeUrl("chrome://extensions"), false);
+});
+
+test("YouTube video IDs are extracted only from supported video URLs", () => {
+  const videoId = "dQw4w9WgXcQ";
+  for (const url of [
+    `https://www.youtube.com/watch?v=${videoId}`,
+    `https://m.youtube.com/watch/?v=${videoId}`,
+    `https://music.youtube.com/watch?v=${videoId}&list=liked`,
+    `https://youtu.be/${videoId}?t=12`,
+    `https://www.youtube.com/shorts/${videoId}`,
+    `https://www.youtube.com/live/${videoId}`,
+    `https://www.youtube.com/v/${videoId}`,
+    `https://www.youtube-nocookie.com/embed/${videoId}`,
+  ]) {
+    assert.equal(getYouTubeVideoId(url), videoId);
+  }
+
+  for (const url of [
+    "https://youtube.com/",
+    "https://youtube.com/playlist?list=PL123",
+    "https://youtube.com/watch?v=too-short",
+    `https://notyoutube.com/watch?v=${videoId}`,
+    "not a URL",
+  ]) {
+    assert.equal(getYouTubeVideoId(url), null);
+  }
+});
+
+test("YouTube thumbnails are derived without changing stored records", () => {
+  assert.equal(
+    getYouTubeThumbnailUrl("https://youtu.be/dQw4w9WgXcQ"),
+    "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+  );
+  assert.equal(
+    getYouTubeThumbnailUrl("https://youtube.com/playlist?list=PL123"),
+    null,
+  );
 });
 
 test("only HTTP and HTTPS pages are considered restorable", () => {

@@ -7,6 +7,8 @@ them only after the save succeeds.
 
 <img src="screenshots/popup.png" width="352" alt="Tab Stash popup" />
 
+<img src="screenshots/youtube.png" alt="YouTube thumbnail preview grid" />
+
 <img src="screenshots/storage.png" alt="Tab Stash saved-tabs library" />
 
 ## What it does
@@ -17,6 +19,8 @@ them only after the save succeeds.
   YouTube tabs always go into the separate YouTube collection.
 - **Open storage** opens a full library with **All**, **YouTube**, and
   **By site** views, search, individual opening/deletion, and bulk actions.
+- The **YouTube** view shows lazy-loaded video thumbnails; playlist, channel,
+  and other non-video pages use a neutral fallback card.
 - Pinned state and original tab order are saved. Opening a stored tab keeps the
   saved copy; deletion is always explicit.
 - Browser-internal pages such as `chrome://settings` are left open because an
@@ -32,9 +36,10 @@ them only after the save succeeds.
 
 Chrome shows a browsing-history permission warning because the `tabs`
 permission is required to read the titles and URLs of all open tabs. The
-extension has no host permissions, no analytics, and no network service.
-Storage is local to this Chrome profile and is removed if the extension is
-uninstalled.
+extension has no host permissions, analytics, or remote code. Opening the
+YouTube view loads thumbnail images directly from YouTube's image host; saved
+tab data remains local to this Chrome profile and is removed if the extension
+is uninstalled.
 
 ## Development checks
 
